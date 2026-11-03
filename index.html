@@ -1,220 +1,380 @@
 <!DOCTYPE html>
 <html lang="so">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#123b32">
-<title>MUASSASADA</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f3f6f4;color:#20342b}
-header{background:#123b32;color:white;padding:22px 16px}
-.brand{display:flex;align-items:center;gap:12px}
-.logo{width:55px;height:55px;border:2px dashed #b8d2c5;border-radius:12px;display:grid;place-items:center;font-size:11px}
-h1{font-size:23px;margin:0}
-nav{display:flex;gap:7px;overflow:auto;background:white;padding:12px;position:sticky;top:0}
-nav button,.tab{border:0;background:#edf3ef;padding:11px 14px;border-radius:9px;white-space:nowrap}
-nav button.active,.tab.active{background:#123b32;color:white}
-main{padding:16px;max-width:900px;margin:auto}
-section{display:none}
-section.active{display:block}
-h2{font-size:20px}
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.card,.panel{background:white;border-radius:13px;padding:16px;margin-bottom:12px}
-.card small{color:#708078}
-.card strong{display:block;font-size:25px;color:#123b32;margin-top:8px}
-label{display:block;font-size:14px;font-weight:bold;margin:13px 0 6px}
-input,select{width:100%;padding:12px;border:1px solid #d5dfd9;border-radius:9px;font-size:16px}
-.primary{width:100%;padding:13px;background:#17654e;color:white;border:0;border-radius:9px;margin-top:16px;font-size:16px}
-.tabs{display:flex;gap:7px;margin:12px 0}
-.tabs button{flex:1}
-.table-wrap{overflow-x:auto}
-table{border-collapse:collapse;width:100%;min-width:540px;font-size:13px}
-td,th{text-align:left;padding:10px;border-bottom:1px solid #e7ede9}
-th{color:#708078}
-.muted{color:#708078;font-size:13px}
-.danger{background:#ffefed;border:0;padding:7px;border-radius:7px;color:#a32e28}
-.empty{text-align:center;padding:20px;color:#708078}
-footer{text-align:center;padding:20px;color:#708078;font-size:12px}
-@media(min-width:650px){.cards{grid-template-columns:repeat(4,1fr)}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#123b32">
+  <meta name="description" content="Nidaamka maamulka iyo la socodka xogta MUASSASADA.">
+  <title>MUASSASADA — Nidaamka maamulka</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --green-950: #102f29;
+      --green-900: #123b32;
+      --green-800: #185344;
+      --green-700: #216b55;
+      --green-100: #e6f1eb;
+      --green-50: #f3f8f5;
+      --ink: #1d3029;
+      --muted: #78867f;
+      --line: #e7ece8;
+      --canvas: #f6f8f6;
+      --white: #fff;
+      --gold: #d3a650;
+      --red: #a63e36;
+      --shadow: 0 12px 35px rgba(16, 47, 41, .055);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: var(--canvas); color: var(--ink); }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    .app-header { background: var(--green-900); color: white; }
+    .header-inner { max-width: 1180px; margin: auto; padding: 21px 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: flex; align-items: center; gap: 13px; }
+    .brand-mark { width: 46px; height: 46px; border: 1px solid rgba(255,255,255,.28); border-radius: 14px; display: grid; place-items: center; background: rgba(255,255,255,.08); color: #e5c779; font-size: 22px; }
+    .brand h1 { margin: 0; font-size: 17px; letter-spacing: .13em; font-weight: 750; }
+    .brand p { margin: 4px 0 0; color: #c2d1ca; font-size: 12px; }
+    .today { color: #d3e0d9; font-size: 13px; }
+    .nav-wrap { background: var(--white); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 5; }
+    nav { max-width: 1180px; padding: 0 28px; margin: auto; display: flex; gap: 8px; overflow-x: auto; }
+    .nav-btn { border: 0; background: transparent; color: #68776f; font-size: 13px; font-weight: 650; padding: 16px 15px; border-bottom: 2px solid transparent; white-space: nowrap; }
+    .nav-btn:hover { color: var(--green-800); }
+    .nav-btn.active { color: var(--green-800); border-bottom-color: var(--green-700); }
+    main { max-width: 1180px; padding: 30px 28px 48px; margin: auto; }
+    section.page { display: none; }
+    section.page.active { display: block; animation: appear .18s ease-out; }
+    @keyframes appear { from { opacity: .6; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+    .page-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 18px; margin-bottom: 22px; }
+    .eyebrow { color: var(--green-700); text-transform: uppercase; letter-spacing: .12em; font-size: 10px; font-weight: 800; }
+    h2 { font-size: 24px; letter-spacing: -.035em; margin: 5px 0 0; }
+    .subtitle { color: var(--muted); font-size: 13px; margin: 7px 0 0; }
+    .button { border: 1px solid var(--line); border-radius: 10px; background: white; color: var(--ink); padding: 10px 14px; font-size: 13px; font-weight: 700; transition: .15s ease; }
+    .button:hover { border-color: #b8c9bf; transform: translateY(-1px); }
+    .button.primary { border-color: var(--green-800); background: var(--green-800); color: white; }
+    .button.primary:hover { background: var(--green-900); }
+    .button.ghost { border: 0; background: transparent; color: var(--green-700); }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-bottom: 18px; }
+    .stat-card, .panel { background: white; border: 1px solid rgba(224,232,226,.8); border-radius: 15px; box-shadow: var(--shadow); }
+    .stat-card { min-height: 126px; padding: 18px 19px; position: relative; overflow: hidden; }
+    .stat-top { display: flex; align-items: center; justify-content: space-between; color: #748179; font-size: 12px; font-weight: 650; }
+    .stat-icon { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 10px; color: var(--green-800); background: var(--green-50); font-size: 16px; }
+    .stat-value { display: block; margin-top: 12px; color: var(--green-950); font-size: 27px; letter-spacing: -.04em; font-weight: 750; }
+    .stat-note { color: #91a097; font-size: 11px; margin-top: 2px; }
+    .dashboard-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 16px; }
+    .panel { padding: 20px; }
+    .panel-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .panel-heading h3 { margin: 0; font-size: 15px; letter-spacing: -.02em; }
+    .panel-heading p { margin: 5px 0 0; color: var(--muted); font-size: 12px; }
+    .category-list { display: grid; gap: 17px; }
+    .category-row { display: grid; grid-template-columns: 82px 1fr 60px; align-items: center; gap: 12px; font-size: 12px; }
+    .category-name { color: #56665d; font-weight: 650; }
+    .track { height: 8px; border-radius: 20px; background: #edf2ee; overflow: hidden; }
+    .fill { height: 100%; background: var(--green-700); border-radius: inherit; transition: width .3s ease; }
+    .category-total { color: var(--green-900); text-align: right; font-weight: 750; }
+    .activity-list { display: grid; }
+    .activity-item { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 11px 0; border-top: 1px solid #f0f3f0; }
+    .activity-item:first-child { border-top: 0; padding-top: 0; }
+    .person-info strong { display: block; font-size: 13px; }
+    .person-info span { color: var(--muted); display: block; font-size: 11px; margin-top: 4px; }
+    .activity-total { text-align: right; font-size: 12px; font-weight: 750; color: var(--green-800); }
+    .activity-total small { display: block; margin-top: 3px; color: var(--muted); font-size: 10px; font-weight: 500; }
+    .toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 11px; margin-bottom: 14px; }
+    .search-box { position: relative; flex: 1; min-width: 205px; max-width: 370px; }
+    .search-box input { width: 100%; padding: 11px 13px 11px 37px; border: 1px solid #dfe7e1; border-radius: 10px; background: white; outline: 0; font-size: 13px; }
+    .search-box input:focus, .field input:focus, .field select:focus { border-color: #70a58c; box-shadow: 0 0 0 3px rgba(33,107,85,.1); }
+    .search-icon { position: absolute; left: 13px; top: 10px; color: #8b9991; }
+    .filters { display: flex; flex-wrap: wrap; gap: 6px; }
+    .filter-btn { border: 1px solid transparent; background: transparent; border-radius: 8px; padding: 8px 11px; color: #728078; font-size: 12px; font-weight: 650; }
+    .filter-btn.active { background: var(--green-100); color: var(--green-800); }
+    .table-panel { padding: 0; overflow: hidden; }
+    .table-wrap { width: 100%; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; min-width: 760px; text-align: left; font-size: 12px; }
+    th { color: #77857d; font-size: 10px; text-transform: uppercase; letter-spacing: .07em; font-weight: 750; background: #fbfcfb; }
+    td, th { padding: 13px 15px; border-bottom: 1px solid #edf1ed; }
+    tbody tr:last-child td { border-bottom: 0; }
+    tbody tr:hover { background: #fbfdfb; }
+    .table-person { font-weight: 700; color: #283b32; }
+    .tag { display: inline-flex; border-radius: 20px; background: #eef5f0; color: var(--green-800); font-size: 10px; font-weight: 700; padding: 5px 8px; }
+    .delete-btn { border: 0; background: #fff3f1; color: var(--red); border-radius: 7px; padding: 7px 9px; font-size: 11px; font-weight: 700; }
+    .delete-btn:hover { background: #ffe4e0; }
+    .empty { color: var(--muted); text-align: center; padding: 38px 16px; font-size: 13px; }
+    .empty-icon { font-size: 25px; margin-bottom: 8px; }
+    .form-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; align-items: start; gap: 16px; }
+    .form-panel { padding: 23px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 15px; }
+    .field { margin-bottom: 15px; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { display: block; margin-bottom: 7px; font-size: 12px; font-weight: 700; color: #46564d; }
+    .required { color: #b34a3d; }
+    .field input, .field select { width: 100%; border: 1px solid #dfe7e1; border-radius: 9px; padding: 11px 12px; background: white; color: var(--ink); outline: none; font-size: 13px; }
+    .field input::placeholder { color: #a5b0a9; }
+    .field-hint { color: #87948c; font-size: 11px; margin-top: 6px; }
+    .form-actions { display: flex; justify-content: flex-end; gap: 8px; padding-top: 4px; border-top: 1px solid #edf1ed; }
+    .info-box { background: var(--green-50); color: #51665a; border-radius: 12px; padding: 16px; font-size: 12px; line-height: 1.7; }
+    .info-box strong { display: block; color: var(--green-900); margin-bottom: 5px; }
+    .about-card { max-width: 720px; padding: 28px; }
+    .about-mark { width: 54px; height: 54px; border-radius: 16px; display: grid; place-items: center; background: var(--green-100); color: var(--green-800); font-size: 25px; margin-bottom: 17px; }
+    .about-card p { color: #697970; line-height: 1.75; font-size: 13px; }
+    footer { border-top: 1px solid var(--line); text-align: center; color: #91a097; padding: 19px; font-size: 11px; }
+    .toast { position: fixed; right: 22px; bottom: 22px; z-index: 10; background: var(--green-950); color: white; border-radius: 11px; padding: 13px 17px; box-shadow: 0 10px 30px #102f2930; font-size: 13px; opacity: 0; transform: translateY(8px); pointer-events: none; transition: .2s ease; }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    @media (max-width: 780px) {
+      .header-inner { padding: 17px 19px; }
+      main { padding: 24px 19px 36px; }
+      nav { padding: 0 12px; }
+      .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .dashboard-grid, .form-layout { grid-template-columns: 1fr; }
+      .form-layout aside { order: -1; }
+    }
+    @media (max-width: 480px) {
+      .today { display: none; }
+      .page-heading { align-items: flex-start; }
+      .page-heading h2 { font-size: 21px; }
+      .page-heading .button { padding: 9px 10px; font-size: 11px; }
+      .stat-card { padding: 14px; min-height: 113px; }
+      .stat-value { font-size: 23px; }
+      .panel { padding: 16px; }
+      .form-panel { padding: 17px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .field.full { grid-column: auto; }
+      .toolbar { align-items: stretch; }
+      .search-box { max-width: none; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+  </style>
 </head>
 <body>
-<header>
- <div class="brand">
-  <div class="logo">LOGO</div>
-  <div><h1>MUASSASADA</h1><p>Nidaamka maamulka xogta</p></div>
- </div>
-</header>
-<nav>
- <button class="active" data-page="home">Home</button>
- <button data-page="data">Xogta</button>
- <button data-page="add">+ Xog geli</button>
- <button data-page="about">Macluumaad</button>
-</nav>
-<main>
-<section id="home" class="active">
- <h2>Dashboard</h2>
- <div class="cards">
-  <div class="card"><small>Saliga</small><strong id="s">0</strong></div>
-  <div class="card"><small>Qur'aan</small><strong id="q">0</strong></div>
-  <div class="card"><small>Yaasin</small><strong id="y">0</strong></div>
-  <div class="card"><small>Ikhlaas</small><strong id="i">0</strong></div>
- </div>
- <div class="panel">
-  <h2>Ku soo dhowow MUASSASADA</h2>
-  <p class="muted">Halkan waxaad ka arki kartaa wadarta xogta.</p>
-  <button class="primary" onclick="go('add')">Xog cusub geli</button>
-  <p>Wadarta diiwaannada: <strong id="count">0</strong></p>
- </div>
-</section>
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">✦</div>
+        <div><h1>MUASSASADA</h1><p>Nidaamka maamulka xogta</p></div>
+      </div>
+      <div class="today" id="today"></div>
+    </div>
+  </header>
+  <div class="nav-wrap">
+    <nav aria-label="Hagidda bogga">
+      <button class="nav-btn active" data-page="home">◫ &nbsp;Guudmar</button>
+      <button class="nav-btn" data-page="data">▤ &nbsp;Diiwaannada</button>
+      <button class="nav-btn" data-page="add">＋ &nbsp;Xog geli</button>
+      <button class="nav-btn" data-page="about">ⓘ &nbsp;Macluumaad</button>
+    </nav>
+  </div>
+  <main>
+    <section id="home" class="page active">
+      <div class="page-heading">
+        <div><div class="eyebrow">MUASSASADA</div><h2>Guudmar</h2><p class="subtitle">La soco xogta iyo diiwaannada ururkaaga.</p></div>
+        <button class="button primary" data-go="add">＋ &nbsp;Diiwaan cusub</button>
+      </div>
+      <div class="stats-grid">
+        <article class="stat-card"><div class="stat-top"><span>Wadarta diiwaannada</span><span class="stat-icon">▤</span></div><strong class="stat-value" id="count">0</strong><div class="stat-note">Dhammaan dadka la diiwaangeliyey</div></article>
+        <article class="stat-card"><div class="stat-top"><span>Saliga guud</span><span class="stat-icon">✧</span></div><strong class="stat-value" id="sum-saliga">0</strong><div class="stat-note">Waxaa ku jira dheeraadka</div></article>
+        <article class="stat-card"><div class="stat-top"><span>Qur'aan</span><span class="stat-icon">⌁</span></div><strong class="stat-value" id="sum-quraan">0</strong><div class="stat-note">Wadarta guud</div></article>
+        <article class="stat-card"><div class="stat-top"><span>Yaasin &amp; Ikhlaas</span><span class="stat-icon">❋</span></div><strong class="stat-value" id="sum-other">0</strong><div class="stat-note">Wadarta labadooda</div></article>
+      </div>
+      <div class="dashboard-grid">
+        <article class="panel">
+          <div class="panel-heading"><div><h3>Saliga qayb ahaan</h3><p>Wadarta saliga iyo dheeraadka</p></div></div>
+          <div class="category-list" id="category-summary"></div>
+        </article>
+        <article class="panel">
+          <div class="panel-heading"><div><h3>Diiwaannadii u dambeeyey</h3><p>Dadka dhowaan xogtooda la geliyey</p></div><button class="button ghost" data-go="data">Dhammaan →</button></div>
+          <div class="activity-list" id="recent-list"></div>
+        </article>
+      </div>
+    </section>
 
-<section id="data">
- <h2>Xogta la diiwaangeliyey</h2>
- <input id="search" placeholder="Raadi lambarka qofka...">
- <div class="tabs">
-  <button class="tab active" data-filter="5000">5000</button>
-  <button class="tab" data-filter="10000">10000</button>
-  <button class="tab" data-filter="Joogto">Joogto</button>
-  <button class="tab" data-filter="Dhammaan">Dhammaan</button>
- </div>
- <div class="panel table-wrap">
-  <table>
-   <thead><tr><th>Lambar</th><th>Qaybta</th><th>Saliga</th><th>Qur'aan</th><th>Yaasin</th><th>Ikhlaas</th><th>Ficil</th></tr></thead>
-   <tbody id="records"></tbody>
-  </table>
-  <div id="empty" class="empty">Weli xog lama gelin.</div>
- </div>
- <p class="muted">Dheeraadka wuxuu ku darsamaa Saliga, mana muuqdo si gooni ah.</p>
-</section>
+    <section id="data" class="page">
+      <div class="page-heading">
+        <div><div class="eyebrow">MAAMULKA</div><h2>Diiwaannada</h2><p class="subtitle">Raadi, kala shaandhee, oo maamul xogta la kaydiyey.</p></div>
+        <button class="button" id="export-btn">↓ &nbsp;Soo dejiso CSV</button>
+      </div>
+      <div class="toolbar">
+        <div class="search-box"><span class="search-icon" aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Raadi lambarka qofka…" aria-label="Raadi diiwaannada"></div>
+        <div class="filters" role="group" aria-label="Kala shaandhee qaybta">
+          <button class="filter-btn active" data-filter="Dhammaan">Dhammaan</button>
+          <button class="filter-btn" data-filter="5000">5000</button>
+          <button class="filter-btn" data-filter="10000">10000</button>
+          <button class="filter-btn" data-filter="Joogto">Joogto</button>
+        </div>
+      </div>
+      <div class="panel table-panel">
+        <div class="table-wrap"><table>
+          <thead><tr><th>Lambarka qofka</th><th>Qaybta</th><th>Saliga</th><th>Qur'aan</th><th>Yaasin</th><th>Ikhlaas</th><th>Ficil</th></tr></thead>
+          <tbody id="records"></tbody>
+        </table></div>
+        <div id="empty" class="empty" hidden><div class="empty-icon">▤</div><strong>Weli xog lama helin</strong><div style="margin-top:5px">Ku dar diiwaan cusub ama beddel raadintaada.</div></div>
+      </div>
+      <p class="subtitle" style="margin-top:12px">Dheeraadka wuxuu ku darsamaa Saliga, mana muuqdo si gooni ah.</p>
+    </section>
 
-<section id="add">
- <h2>Foomka xog-gelinta</h2>
- <div class="panel">
-  <form id="form">
-   <label>Lambarka qofka *</label>
-   <input id="person" required>
-   <label>Qaybta Saliga *</label>
-   <select id="category">
-    <option>5000</option><option>10000</option><option>Joogto</option>
-   </select>
-   <label>Saliga *</label>
-   <input id="saliga" type="number" min="0" step="any" value="0" required>
-   <label>Dheeraad</label>
-   <input id="extra" type="number" min="0" step="any" value="0">
-   <label>Qur'aan</label>
-   <input id="quraan" type="number" min="0" step="any" value="0">
-   <label>Yaasin</label>
-   <input id="yaasin" type="number" min="0" step="any" value="0">
-   <label>Ikhlaas</label>
-   <input id="ikhlaas" type="number" min="0" step="any" value="0">
-   <button class="primary" type="submit">Kaydi xogta</button>
-  </form>
- </div>
-</section>
+    <section id="add" class="page">
+      <div class="page-heading"><div><div class="eyebrow">DIWAANGELIN</div><h2>Xog cusub geli</h2><p class="subtitle">Buuxi xogta qofka si aad ugu darto diiwaanka.</p></div></div>
+      <div class="form-layout">
+        <div class="panel form-panel">
+          <form id="form">
+            <div class="form-grid">
+              <div class="field full"><label for="person">Lambarka qofka <span class="required">*</span></label><input id="person" name="person" required maxlength="80" autocomplete="off" placeholder="Tusaale: 0612345678"></div>
+              <div class="field full"><label for="category">Qaybta Saliga <span class="required">*</span></label><select id="category" name="category"><option value="5000">5000</option><option value="10000">10000</option><option value="Joogto">Joogto</option></select></div>
+              <div class="field"><label for="saliga">Saliga</label><input id="saliga" name="saliga" type="number" min="0" step="any" value="0" inputmode="decimal"></div>
+              <div class="field"><label for="extra">Dheeraad</label><input id="extra" name="extra" type="number" min="0" step="any" value="0" inputmode="decimal"><div class="field-hint">Si toos ah ayuu ugu darsamaa Saliga.</div></div>
+              <div class="field"><label for="quraan">Qur'aan</label><input id="quraan" name="quraan" type="number" min="0" step="any" value="0" inputmode="decimal"></div>
+              <div class="field"><label for="yaasin">Yaasin</label><input id="yaasin" name="yaasin" type="number" min="0" step="any" value="0" inputmode="decimal"></div>
+              <div class="field"><label for="ikhlaas">Ikhlaas</label><input id="ikhlaas" name="ikhlaas" type="number" min="0" step="any" value="0" inputmode="decimal"></div>
+            </div>
+            <div class="form-actions"><button class="button" type="reset">Nadiifi</button><button class="button primary" type="submit">Kaydi xogta</button></div>
+          </form>
+        </div>
+        <aside class="info-box"><strong>Ogow</strong>Xogtaadu waxay ku kaydsan tahay browser-kan oo keliya. Isticmaal “Soo dejiso CSV” si aad nuqul uga samaysato diiwaannada.</aside>
+      </div>
+    </section>
 
-<section id="about">
- <div class="panel">
-  <h2>MUASSASADA</h2>
-  <p>Meesha Logo-ga waa bannaan tahay.</p>
-  <p class="muted">Nooca tijaabada ah. Xogtu waxay ku kaydsan tahay browser-ka qalabka.</p>
- </div>
-</section>
-</main>
-<footer>MUASSASADA</footer>
+    <section id="about" class="page">
+      <div class="page-heading"><div><div class="eyebrow">WAA KU SAABSAN</div><h2>Macluumaad</h2><p class="subtitle">Nidaamka maamulka MUASSASADA.</p></div></div>
+      <article class="panel about-card"><div class="about-mark" aria-hidden="true">✦</div><h3>MUASSASADA</h3><p>Nidaam fudud oo loogu talagalay diiwaangelinta iyo la socodka xogta. Waxaad ku dari kartaa diiwaanno, ka raadin kartaa lambarka qofka, kala shaandhayn kartaa qaybaha, isla markaana waxaad xogta ugu dhoofin kartaa fayl CSV.</p><p><strong>Kaydinta xogta:</strong> Xogtu waxay ku kaydsan tahay browser-ka qalabkaaga. Haddii aad nadiifiso xogta browser-ka ama aad u beddesho qalab kale, xogtu ma sii jiri doonto. Fadlan si joogto ah u soo dejiso nuqul CSV ah.</p></article>
+    </section>
+  </main>
+  <footer>MUASSASADA <span aria-hidden="true">·</span> Nidaamka maamulka xogta</footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>
+    "use strict";
+    const KEY = "muassasada_data_v1";
+    const categories = ["5000", "10000", "Joogto"];
+    let data = [];
+    let filter = "Dhammaan";
+    let toastTimer;
 
-<script>
-"use strict";
-const KEY="muassasada_data_v1";
-let data=[];
-let filter="5000";
+    try {
+      const stored = JSON.parse(localStorage.getItem(KEY) || "[]");
+      if (Array.isArray(stored)) data = stored.filter(r => r && typeof r === "object").map(r => ({
+        id: String(r.id || (Date.now() + Math.random())),
+        person: String(r.person || ""),
+        category: categories.includes(String(r.category)) ? String(r.category) : "5000",
+        saliga: amount(r.saliga), extra: amount(r.extra), quraan: amount(r.quraan),
+        yaasin: amount(r.yaasin), ikhlaas: amount(r.ikhlaas), createdAt: r.createdAt || ""
+      }));
+    } catch (error) { data = []; }
 
-try{
- data=JSON.parse(localStorage.getItem(KEY)||"[]");
- if(!Array.isArray(data))data=[];
-}catch(e){data=[];}
+    function amount(value) { const n = Number(value); return Number.isFinite(n) && n > 0 ? n : 0; }
+    function fmt(value) { return Number(value || 0).toLocaleString("en-US", { maximumFractionDigits: 2 }); }
+    function total(key) { return data.reduce((sum, item) => sum + amount(item[key]), 0); }
+    function save() {
+      try { localStorage.setItem(KEY, JSON.stringify(data)); return true; }
+      catch (error) { showToast("Xogta lama kaydin. Hubi booska browser-ka."); return false; }
+    }
+    function showToast(message) {
+      const el = document.getElementById("toast");
+      el.textContent = message;
+      el.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.classList.remove("show"), 2800);
+    }
+    function go(id) {
+      document.querySelectorAll(".page").forEach(page => page.classList.toggle("active", page.id === id));
+      document.querySelectorAll(".nav-btn").forEach(button => button.classList.toggle("active", button.dataset.page === id));
+      if (id === "home") dashboard();
+      if (id === "data") render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    document.querySelectorAll("[data-page]").forEach(button => button.addEventListener("click", () => go(button.dataset.page)));
+    document.querySelectorAll("[data-go]").forEach(button => button.addEventListener("click", () => go(button.dataset.go)));
 
-function save(){
- try{
-  localStorage.setItem(KEY,JSON.stringify(data));
-  return true;
- }catch(e){
-  alert("Xogta lama kaydin. Hubi booska browser-ka.");
-  return false;
- }
-}
-function fmt(n){return Number(n||0).toLocaleString();}
-function go(id){
- document.querySelectorAll("main section").forEach(x=>x.classList.remove("active"));
- document.getElementById(id).classList.add("active");
- document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
- if(id==="home")dashboard();
- if(id==="data")render();
-}
-document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>go(b.dataset.page));
+    function dashboard() {
+      document.getElementById("count").textContent = fmt(data.length);
+      document.getElementById("sum-saliga").textContent = fmt(total("saliga") + total("extra"));
+      document.getElementById("sum-quraan").textContent = fmt(total("quraan"));
+      document.getElementById("sum-other").textContent = fmt(total("yaasin") + total("ikhlaas"));
+      const categoryTotals = categories.map(category => ({ category, value: data.filter(r => r.category === category).reduce((sum, r) => sum + r.saliga + r.extra, 0) }));
+      const max = Math.max(...categoryTotals.map(item => item.value), 1);
+      const summary = document.getElementById("category-summary");
+      summary.replaceChildren();
+      categoryTotals.forEach(item => {
+        const row = document.createElement("div"); row.className = "category-row";
+        const name = document.createElement("span"); name.className = "category-name"; name.textContent = item.category;
+        const track = document.createElement("div"); track.className = "track";
+        const fill = document.createElement("div"); fill.className = "fill"; fill.style.width = `${Math.max(item.value ? 4 : 0, item.value / max * 100)}%`; track.appendChild(fill);
+        const value = document.createElement("span"); value.className = "category-total"; value.textContent = fmt(item.value);
+        row.append(name, track, value); summary.appendChild(row);
+      });
+      const recent = document.getElementById("recent-list"); recent.replaceChildren();
+      const items = [...data].reverse().slice(0, 4);
+      if (!items.length) { recent.innerHTML = '<div class="empty" style="padding:20px 0">Weli diiwaan lama gelin.</div>'; return; }
+      items.forEach(item => {
+        const row = document.createElement("div"); row.className = "activity-item";
+        const person = document.createElement("div"); person.className = "person-info";
+        const strong = document.createElement("strong"); strong.textContent = item.person;
+        const meta = document.createElement("span"); meta.textContent = `${item.category} · ${dateLabel(item.createdAt)}`;
+        person.append(strong, meta);
+        const sum = document.createElement("div"); sum.className = "activity-total"; sum.textContent = fmt(item.saliga + item.extra);
+        const small = document.createElement("small"); small.textContent = "Saliga"; sum.appendChild(small);
+        row.append(person, sum); recent.appendChild(row);
+      });
+    }
+    function dateLabel(value) {
+      if (!value) return "Diiwaan hore";
+      const date = new Date(value);
+      return Number.isNaN(date.getTime()) ? "Diiwaan hore" : date.toLocaleDateString("so-SO", { day: "numeric", month: "short", year: "numeric" });
+    }
+    function render() {
+      const body = document.getElementById("records"); body.replaceChildren();
+      const query = document.getElementById("search").value.trim().toLocaleLowerCase();
+      const list = data.filter(item => (filter === "Dhammaan" || item.category === filter) && item.person.toLocaleLowerCase().includes(query));
+      document.getElementById("empty").hidden = list.length > 0;
+      list.forEach(item => {
+        const row = document.createElement("tr");
+        const person = document.createElement("td"); person.className = "table-person"; person.textContent = item.person; row.appendChild(person);
+        const category = document.createElement("td"); const badge = document.createElement("span"); badge.className = "tag"; badge.textContent = item.category; category.appendChild(badge); row.appendChild(category);
+        [item.saliga + item.extra, item.quraan, item.yaasin, item.ikhlaas].forEach(value => { const cell = document.createElement("td"); cell.textContent = fmt(value); row.appendChild(cell); });
+        const action = document.createElement("td"); const button = document.createElement("button"); button.className = "delete-btn"; button.type = "button"; button.textContent = "Tirtir"; button.setAttribute("aria-label", `Tirtir diiwaanka ${item.person}`); button.addEventListener("click", () => removeRecord(item.id)); action.appendChild(button); row.appendChild(action);
+        body.appendChild(row);
+      });
+    }
+    document.querySelectorAll("[data-filter]").forEach(button => button.addEventListener("click", () => {
+      filter = button.dataset.filter;
+      document.querySelectorAll("[data-filter]").forEach(item => item.classList.toggle("active", item === button));
+      render();
+    }));
+    document.getElementById("search").addEventListener("input", render);
 
-function dashboard(){
- const sum=k=>data.reduce((a,r)=>a+Number(r[k]||0),0);
- document.getElementById("s").textContent=fmt(sum("saliga")+sum("extra"));
- document.getElementById("q").textContent=fmt(sum("quraan"));
- document.getElementById("y").textContent=fmt(sum("yaasin"));
- document.getElementById("i").textContent=fmt(sum("ikhlaas"));
- document.getElementById("count").textContent=data.length;
-}
-function render(){
- const body=document.getElementById("records");
- body.replaceChildren();
- const query=document.getElementById("search").value.trim().toLowerCase();
- const list=data.filter(r=>(filter==="Dhammaan"||r.category===filter)&&r.person.toLowerCase().includes(query));
- document.getElementById("empty").style.display=list.length?"none":"block";
- list.forEach(r=>{
-  const tr=document.createElement("tr");
-  [r.person,r.category,fmt(r.saliga+r.extra),fmt(r.quraan),fmt(r.yaasin),fmt(r.ikhlaas)].forEach(v=>{
-   const td=document.createElement("td");td.textContent=v;tr.appendChild(td);
-  });
-  const td=document.createElement("td");
-  const btn=document.createElement("button");
-  btn.className="danger";btn.textContent="Tirtir";
-  btn.onclick=()=>removeRecord(r.id);
-  td.appendChild(btn);tr.appendChild(td);body.appendChild(tr);
- });
-}
-document.querySelectorAll("[data-filter]").forEach(b=>b.onclick=()=>{
- filter=b.dataset.filter;
- document.querySelectorAll("[data-filter]").forEach(x=>x.classList.toggle("active",x===b));
- render();
-});
-document.getElementById("search").oninput=render;
-
-document.getElementById("form").onsubmit=e=>{
- e.preventDefault();
- const n=id=>Math.max(0,Number(document.getElementById(id).value)||0);
- const person=document.getElementById("person").value.trim();
- if(!person){alert("Geli lambarka qofka.");return;}
- const r={
-  id:Date.now().toString()+Math.random().toString(36).slice(2),
-  person,
-  category:document.getElementById("category").value,
-  saliga:n("saliga"),extra:n("extra"),
-  quraan:n("quraan"),yaasin:n("yaasin"),ikhlaas:n("ikhlaas")
- };
- data.push(r);
- if(!save()){data.pop();return;}
- e.target.reset();
- ["saliga","extra","quraan","yaasin","ikhlaas"].forEach(id=>document.getElementById(id).value=0);
- dashboard();filter=r.category;
- document.querySelectorAll("[data-filter]").forEach(b=>b.classList.toggle("active",b.dataset.filter===filter));
- go("data");
- alert("Xogta waa la kaydiyey.");
-};
-function removeRecord(id){
- if(!confirm("Ma tirtiraysaa xogtan?"))return;
- const old=data;
- data=data.filter(r=>r.id!==id);
- if(!save()){data=old;return;}
- dashboard();render();
-}
-dashboard();
-</script>
+    document.getElementById("form").addEventListener("submit", event => {
+      event.preventDefault();
+      const person = document.getElementById("person").value.trim();
+      if (!person) { document.getElementById("person").focus(); return; }
+      const read = id => amount(document.getElementById(id).value);
+      const record = {
+        id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+        person, category: document.getElementById("category").value,
+        saliga: read("saliga"), extra: read("extra"), quraan: read("quraan"),
+        yaasin: read("yaasin"), ikhlaas: read("ikhlaas"), createdAt: new Date().toISOString()
+      };
+      data.push(record);
+      if (!save()) { data.pop(); return; }
+      event.target.reset();
+      ["saliga", "extra", "quraan", "yaasin", "ikhlaas"].forEach(id => { document.getElementById(id).value = "0"; });
+      filter = record.category;
+      document.querySelectorAll("[data-filter]").forEach(button => button.classList.toggle("active", button.dataset.filter === filter));
+      dashboard(); go("data"); render(); showToast("Xogta si guul leh ayaa loo kaydiyey.");
+    });
+    function removeRecord(id) {
+      const record = data.find(item => item.id === id);
+      if (!record || !window.confirm(`Ma tirtiraysaa diiwaanka ${record.person}?`)) return;
+      const previous = data; data = data.filter(item => item.id !== id);
+      if (!save()) { data = previous; return; }
+      dashboard(); render(); showToast("Diiwaanka waa la tirtiray.");
+    }
+    document.getElementById("export-btn").addEventListener("click", () => {
+      if (!data.length) { showToast("Ma jiraan diiwaanno la dhoofin karo."); return; }
+      const columns = ["Lambarka qofka", "Qaybta", "Saliga", "Dheeraad", "Qur'aan", "Yaasin", "Ikhlaas", "Taariikh"];
+      const rows = data.map(item => [item.person, item.category, item.saliga, item.extra, item.quraan, item.yaasin, item.ikhlaas, item.createdAt]);
+      const csv = [columns, ...rows].map(row => row.map(value => `"${String(value ?? "").replaceAll('"', '""')}"`).join(",")).join("\r\n");
+      const blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8" });
+      const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = `muassasada-${new Date().toISOString().slice(0, 10)}.csv`; link.click(); URL.revokeObjectURL(link.href);
+      showToast("Faylka CSV waa la soo dejiyey.");
+    });
+    document.getElementById("today").textContent = new Date().toLocaleDateString("so-SO", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+    dashboard();
+  </script>
 </body>
 </html>
