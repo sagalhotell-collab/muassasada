@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123b32">
+<title>MUASSASADA</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#f3f6f4;color:#20342b}
+header{background:#123b32;color:white;padding:22px 16px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:55px;height:55px;border:2px dashed #b8d2c5;border-radius:12px;display:grid;place-items:center;font-size:11px}
+h1{font-size:23px;margin:0}
+nav{display:flex;gap:7px;overflow:auto;background:white;padding:12px;position:sticky;top:0}
+nav button,.tab{border:0;background:#edf3ef;padding:11px 14px;border-radius:9px;white-space:nowrap}
+nav button.active,.tab.active{background:#123b32;color:white}
+main{padding:16px;max-width:900px;margin:auto}
+section{display:none}
+section.active{display:block}
+h2{font-size:20px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card,.panel{background:white;border-radius:13px;padding:16px;margin-bottom:12px}
+.card small{color:#708078}
+.card strong{display:block;font-size:25px;color:#123b32;margin-top:8px}
+label{display:block;font-size:14px;font-weight:bold;margin:13px 0 6px}
+input,select{width:100%;padding:12px;border:1px solid #d5dfd9;border-radius:9px;font-size:16px}
+.primary{width:100%;padding:13px;background:#17654e;color:white;border:0;border-radius:9px;margin-top:16px;font-size:16px}
+.tabs{display:flex;gap:7px;margin:12px 0}
+.tabs button{flex:1}
+.table-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:540px;font-size:13px}
+td,th{text-align:left;padding:10px;border-bottom:1px solid #e7ede9}
+th{color:#708078}
+.muted{color:#708078;font-size:13px}
+.danger{background:#ffefed;border:0;padding:7px;border-radius:7px;color:#a32e28}
+.empty{text-align:center;padding:20px;color:#708078}
+footer{text-align:center;padding:20px;color:#708078;font-size:12px}
+@media(min-width:650px){.cards{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand">
+  <div class="logo">LOGO</div>
+  <div><h1>MUASSASADA</h1><p>Nidaamka maamulka xogta</p></div>
+ </div>
+</header>
+<nav>
+ <button class="active" data-page="home">Home</button>
+ <button data-page="data">Xogta</button>
+ <button data-page="add">+ Xog geli</button>
+ <button data-page="about">Macluumaad</button>
+</nav>
+<main>
+<section id="home" class="active">
+ <h2>Dashboard</h2>
+ <div class="cards">
+  <div class="card"><small>Saliga</small><strong id="s">0</strong></div>
+  <div class="card"><small>Qur'aan</small><strong id="q">0</strong></div>
+  <div class="card"><small>Yaasin</small><strong id="y">0</strong></div>
+  <div class="card"><small>Ikhlaas</small><strong id="i">0</strong></div>
+ </div>
+ <div class="panel">
+  <h2>Ku soo dhowow MUASSASADA</h2>
+  <p class="muted">Halkan waxaad ka arki kartaa wadarta xogta.</p>
+  <button class="primary" onclick="go('add')">Xog cusub geli</button>
+  <p>Wadarta diiwaannada: <strong id="count">0</strong></p>
+ </div>
+</section>
+
+<section id="data">
+ <h2>Xogta la diiwaangeliyey</h2>
+ <input id="search" placeholder="Raadi lambarka qofka...">
+ <div class="tabs">
+  <button class="tab active" data-filter="5000">5000</button>
+  <button class="tab" data-filter="10000">10000</button>
+  <button class="tab" data-filter="Joogto">Joogto</button>
+  <button class="tab" data-filter="Dhammaan">Dhammaan</button>
+ </div>
+ <div class="panel table-wrap">
+  <table>
+   <thead><tr><th>Lambar</th><th>Qaybta</th><th>Saliga</th><th>Qur'aan</th><th>Yaasin</th><th>Ikhlaas</th><th>Ficil</th></tr></thead>
+   <tbody id="records"></tbody>
+  </table>
+  <div id="empty" class="empty">Weli xog lama gelin.</div>
+ </div>
+ <p class="muted">Dheeraadka wuxuu ku darsamaa Saliga, mana muuqdo si gooni ah.</p>
+</section>
+
+<section id="add">
+ <h2>Foomka xog-gelinta</h2>
+ <div class="panel">
+  <form id="form">
+   <label>Lambarka qofka *</label>
+   <input id="person" required>
+   <label>Qaybta Saliga *</label>
+   <select id="category">
+    <option>5000</option><option>10000</option><option>Joogto</option>
+   </select>
+   <label>Saliga *</label>
+   <input id="saliga" type="number" min="0" step="any" value="0" required>
+   <label>Dheeraad</label>
+   <input id="extra" type="number" min="0" step="any" value="0">
+   <label>Qur'aan</label>
+   <input id="quraan" type="number" min="0" step="any" value="0">
+   <label>Yaasin</label>
+   <input id="yaasin" type="number" min="0" step="any" value="0">
+   <label>Ikhlaas</label>
+   <input id="ikhlaas" type="number" min="0" step="any" value="0">
+   <button class="primary" type="submit">Kaydi xogta</button>
+  </form>
+ </div>
+</section>
+
+<section id="about">
+ <div class="panel">
+  <h2>MUASSASADA</h2>
+  <p>Meesha Logo-ga waa bannaan tahay.</p>
+  <p class="muted">Nooca tijaabada ah. Xogtu waxay ku kaydsan tahay browser-ka qalabka.</p>
+ </div>
+</section>
+</main>
+<footer>MUASSASADA</footer>
+
+<script>
+"use strict";
+const KEY="muassasada_data_v1";
+let data=[];
+let filter="5000";
+
+try{
+ data=JSON.parse(localStorage.getItem(KEY)||"[]");
+ if(!Array.isArray(data))data=[];
+}catch(e){data=[];}
+
+function save(){
+ try{
+  localStorage.setItem(KEY,JSON.stringify(data));
+  return true;
+ }catch(e){
+  alert("Xogta lama kaydin. Hubi booska browser-ka.");
+  return false;
+ }
+}
+function fmt(n){return Number(n||0).toLocaleString();}
+function go(id){
+ document.querySelectorAll("main section").forEach(x=>x.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
+ if(id==="home")dashboard();
+ if(id==="data")render();
+}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>go(b.dataset.page));
+
+function dashboard(){
+ const sum=k=>data.reduce((a,r)=>a+Number(r[k]||0),0);
+ document.getElementById("s").textContent=fmt(sum("saliga")+sum("extra"));
+ document.getElementById("q").textContent=fmt(sum("quraan"));
+ document.getElementById("y").textContent=fmt(sum("yaasin"));
+ document.getElementById("i").textContent=fmt(sum("ikhlaas"));
+ document.getElementById("count").textContent=data.length;
+}
+function render(){
+ const body=document.getElementById("records");
+ body.replaceChildren();
+ const query=document.getElementById("search").value.trim().toLowerCase();
+ const list=data.filter(r=>(filter==="Dhammaan"||r.category===filter)&&r.person.toLowerCase().includes(query));
+ document.getElementById("empty").style.display=list.length?"none":"block";
+ list.forEach(r=>{
+  const tr=document.createElement("tr");
+  [r.person,r.category,fmt(r.saliga+r.extra),fmt(r.quraan),fmt(r.yaasin),fmt(r.ikhlaas)].forEach(v=>{
+   const td=document.createElement("td");td.textContent=v;tr.appendChild(td);
+  });
+  const td=document.createElement("td");
+  const btn=document.createElement("button");
+  btn.className="danger";btn.textContent="Tirtir";
+  btn.onclick=()=>removeRecord(r.id);
+  td.appendChild(btn);tr.appendChild(td);body.appendChild(tr);
+ });
+}
+document.querySelectorAll("[data-filter]").forEach(b=>b.onclick=()=>{
+ filter=b.dataset.filter;
+ document.querySelectorAll("[data-filter]").forEach(x=>x.classList.toggle("active",x===b));
+ render();
+});
+document.getElementById("search").oninput=render;
+
+document.getElementById("form").onsubmit=e=>{
+ e.preventDefault();
+ const n=id=>Math.max(0,Number(document.getElementById(id).value)||0);
+ const person=document.getElementById("person").value.trim();
+ if(!person){alert("Geli lambarka qofka.");return;}
+ const r={
+  id:Date.now().toString()+Math.random().toString(36).slice(2),
+  person,
+  category:document.getElementById("category").value,
+  saliga:n("saliga"),extra:n("extra"),
+  quraan:n("quraan"),yaasin:n("yaasin"),ikhlaas:n("ikhlaas")
+ };
+ data.push(r);
+ if(!save()){data.pop();return;}
+ e.target.reset();
+ ["saliga","extra","quraan","yaasin","ikhlaas"].forEach(id=>document.getElementById(id).value=0);
+ dashboard();filter=r.category;
+ document.querySelectorAll("[data-filter]").forEach(b=>b.classList.toggle("active",b.dataset.filter===filter));
+ go("data");
+ alert("Xogta waa la kaydiyey.");
+};
+function removeRecord(id){
+ if(!confirm("Ma tirtiraysaa xogtan?"))return;
+ const old=data;
+ data=data.filter(r=>r.id!==id);
+ if(!save()){data=old;return;}
+ dashboard();render();
+}
+dashboard();
+</script>
+</body>
+</html>
